@@ -20,8 +20,9 @@ public:
 	DEFINE_PROCESSOR(102, isHindrance, QueryResultType, INextBot*, CBaseEntity*);
 	DEFINE_PROCESSOR(103, selectTargetPoint, Vector, INextBot*, CBaseCombatCharacter*);
 	DEFINE_PROCESSOR(104, isPositionAllowed, QueryResultType, INextBot*, Vector&);
-	DEFINE_PROCESSOR(105, queryCurrentPath, PathFollower*, INextBot*);
 	DEFINE_PROCESSOR(106, selectMoreDangerousThreat, CKnownEntity*, INextBot*, CBaseCombatCharacter*, CKnownEntity*, CKnownEntity*);
+	DEFINE_PROCESSOR(107, shouldRetreat, QueryResultType, INextBot*);
+	DEFINE_PROCESSOR(108, shouldAttack, QueryResultType, INextBot*, const CKnownEntity*);
 };
 
 #endif // _INCLUDE_ACTIONS_CQUERY_H

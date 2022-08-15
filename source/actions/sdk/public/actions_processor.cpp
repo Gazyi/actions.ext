@@ -30,19 +30,15 @@ SH_DECL_MANUALHOOK2(OnKilled, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, c
 SH_DECL_MANUALHOOK3(OnOtherKilled, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, const CTakeDamageInfo*);
 SH_DECL_MANUALHOOK2(OnSight, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnLostSight, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
-SH_DECL_MANUALHOOK2(OnThreatChanged, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK4(OnSound, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, const Vector&, KeyValues*);
-SH_DECL_MANUALHOOK5(OnSpokeConcept, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, AIConcept_t, AI_Response*, void*);
+SH_DECL_MANUALHOOK4(OnSpokeConcept, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, const char*, AI_Response*);
 SH_DECL_MANUALHOOK3(OnNavAreaChanged, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CNavArea*, CNavArea*);
 SH_DECL_MANUALHOOK1(OnModelChanged, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
 SH_DECL_MANUALHOOK3(OnPickUp, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnDrop, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnShoved, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnBlinded, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
-SH_DECL_MANUALHOOK1(OnEnteredSpit, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
-SH_DECL_MANUALHOOK2(OnHitByVomitJar, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnCommandAttack, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
-SH_DECL_MANUALHOOK1(OnCommandAssault, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
 SH_DECL_MANUALHOOK3(OnCommandApproachVector, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, const Vector&, float);
 SH_DECL_MANUALHOOK2(OnCommandApproachEntity, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 SH_DECL_MANUALHOOK3(OnCommandRetreat, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, float);
@@ -50,6 +46,13 @@ SH_DECL_MANUALHOOK2(OnCommandPause, 0, 0, 0, EventDesiredResult<void>, CBaseEnti
 SH_DECL_MANUALHOOK1(OnCommandResume, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
 SH_DECL_MANUALHOOK2(OnCommandString, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, const char*);
 SH_DECL_MANUALHOOK1(IsAbleToBlockMovementOf, 0, 0, 0, bool, const INextBot*);
+SH_DECL_MANUALHOOK3(OnWeaponFired, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, CBaseCombatWeapon*);
+SH_DECL_MANUALHOOK3(OnActorEmoted, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, int);
+SH_DECL_MANUALHOOK1(OnLose, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
+SH_DECL_MANUALHOOK1(OnWin, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*);
+SH_DECL_MANUALHOOK2(OnTerritoryContested, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, int);
+SH_DECL_MANUALHOOK2(OnTerritoryCaptured, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, int);
+SH_DECL_MANUALHOOK2(OnTerritoryLost, 0, 0, 0, EventDesiredResult<void>, CBaseEntity*, int);
 
 
 ActionProcessor::ActionProcessor(CBaseEntity* entity, Action<void>* action) : m_action(action)
@@ -101,7 +104,6 @@ void ActionProcessor::StartProcessors()
 	START_PROCESSOR(OnOtherKilled, otherKilled);
 	START_PROCESSOR(OnSight, sight);
 	START_PROCESSOR(OnLostSight, lostSight);
-	START_PROCESSOR(OnThreatChanged, threatChanged);
 	START_PROCESSOR(OnSound, sound);
 	START_PROCESSOR(OnSpokeConcept, spokeConcept);
 	START_PROCESSOR(OnNavAreaChanged, navareaChanged);
@@ -117,10 +119,14 @@ void ActionProcessor::StartProcessors()
 	START_PROCESSOR(OnCommandPause, commandPause);
 	START_PROCESSOR(OnCommandResume, commandResume);
 	START_PROCESSOR(IsAbleToBlockMovementOf, abletoBlock);
-	START_PROCESSOR(OnCommandAssault, commandAssault);
-	START_PROCESSOR(OnEnteredSpit, enteredSpit);
-	START_PROCESSOR(OnHitByVomitJar, hitVomitjar);
 	START_PROCESSOR(OnCommandString, commandString);
+	START_PROCESSOR(OnWeaponFired, weaponFired);
+	START_PROCESSOR(OnActorEmoted, actorEmoted);
+	START_PROCESSOR(OnLose, onLose);
+	START_PROCESSOR(OnWin, onWin);
+	START_PROCESSOR(OnTerritoryContested, territoryContested);
+	START_PROCESSOR(OnTerritoryCaptured, territoryCaptured);
+	START_PROCESSOR(OnTerritoryLost, territoryLost);
 }
 
 const bool ActionProcessor::ConfigureHooks()
@@ -151,7 +157,6 @@ const bool ActionProcessor::ConfigureHooks()
 	RECONFIGURE_MANUALHOOK(OnOtherKilled);
 	RECONFIGURE_MANUALHOOK(OnSight);
 	RECONFIGURE_MANUALHOOK(OnLostSight);
-	RECONFIGURE_MANUALHOOK(OnThreatChanged);
 	RECONFIGURE_MANUALHOOK(OnSound);
 	RECONFIGURE_MANUALHOOK(OnSpokeConcept);
 	RECONFIGURE_MANUALHOOK(OnNavAreaChanged);
@@ -165,12 +170,16 @@ const bool ActionProcessor::ConfigureHooks()
 	RECONFIGURE_MANUALHOOK(OnCommandRetreat);
 	RECONFIGURE_MANUALHOOK(OnCommandPause);
 	RECONFIGURE_MANUALHOOK(OnCommandResume);
-	RECONFIGURE_MANUALHOOK(OnEnteredSpit);
-	RECONFIGURE_MANUALHOOK(OnHitByVomitJar);
-	RECONFIGURE_MANUALHOOK(OnCommandAssault);
 	RECONFIGURE_MANUALHOOK(OnCommandString);
 	RECONFIGURE_MANUALHOOK(IsAbleToBlockMovementOf);
 	RECONFIGURE_MANUALHOOK(OnCommandApproachEntity);
+	RECONFIGURE_MANUALHOOK(OnWeaponFired);
+	RECONFIGURE_MANUALHOOK(OnActorEmoted);
+	RECONFIGURE_MANUALHOOK(OnLose);
+	RECONFIGURE_MANUALHOOK(OnWin);
+	RECONFIGURE_MANUALHOOK(OnTerritoryContested);
+	RECONFIGURE_MANUALHOOK(OnTerritoryCaptured);
+	RECONFIGURE_MANUALHOOK(OnTerritoryLost);
 
 	return !GetOffsetsManager()->HaveFailedRequest();
 }

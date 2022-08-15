@@ -49,9 +49,8 @@ protected:
 	DEFINE_PROCESSOR(30, otherKilled, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, const CTakeDamageInfo*);
 	DEFINE_PROCESSOR(31, sight, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 	DEFINE_PROCESSOR(32, lostSight, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
-	DEFINE_PROCESSOR(33, threatChanged, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
 	DEFINE_PROCESSOR(34, sound, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, const Vector&, KeyValues*);
-	DEFINE_PROCESSOR(35, spokeConcept, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, AIConcept_t, AI_Response*, void*);
+	DEFINE_PROCESSOR(35, spokeConcept, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, const char*, AI_Response*);
 	DEFINE_PROCESSOR(36, navareaChanged, EventDesiredResult<void>, CBaseEntity*, CNavArea*, CNavArea*);
 	DEFINE_PROCESSOR(37, modelChanged, EventDesiredResult<void>, CBaseEntity*);
 	DEFINE_PROCESSOR(38, pickup, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*, CBaseEntity*);
@@ -65,10 +64,14 @@ protected:
 	DEFINE_PROCESSOR(46, commandPause, EventDesiredResult<void>, CBaseEntity*, float);
 	DEFINE_PROCESSOR(47, commandResume, EventDesiredResult<void>, CBaseEntity*);
 	DEFINE_PROCESSOR(48, abletoBlock, bool, const INextBot*);
-	DEFINE_PROCESSOR(49, enteredSpit, EventDesiredResult<void>, CBaseEntity*);
-	DEFINE_PROCESSOR(50, hitVomitjar, EventDesiredResult<void>, CBaseEntity*, CBaseEntity*);
-	DEFINE_PROCESSOR(51, commandAssault, EventDesiredResult<void>, CBaseEntity*);
 	DEFINE_PROCESSOR(52, commandString, EventDesiredResult<void>, CBaseEntity*, const char*);
+	DEFINE_PROCESSOR(53, weaponFired, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, CBaseCombatWeapon*);
+	DEFINE_PROCESSOR(54, actorEmoted, EventDesiredResult<void>, CBaseEntity*, CBaseCombatCharacter*, int);
+	DEFINE_PROCESSOR(55, onLose, EventDesiredResult<void>, CBaseEntity*);
+	DEFINE_PROCESSOR(56, onWin, EventDesiredResult<void>, CBaseEntity*);
+	DEFINE_PROCESSOR(57, territoryContested, EventDesiredResult<void>, CBaseEntity*, int);
+	DEFINE_PROCESSOR(58, territoryCaptured, EventDesiredResult<void>, CBaseEntity*, int);
+	DEFINE_PROCESSOR(59, territoryLost, EventDesiredResult<void>, CBaseEntity*, int);
 };
 
 #endif // _INCLUDE_ACTIONS_PROCS_H

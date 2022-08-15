@@ -5,8 +5,8 @@ set(MM_PATH $ENV{METAMOD})
 set(SM_PATH $ENV{SOURCEMOD})
 
 if ("${SDK_PATH}" STREQUAL "")
-	message("Failed to get SDK, use L4D2SDK instead...")
-	set(SDK_PATH $ENV{L4D2SDK})
+	message("Failed to get SDK, use TF2SDK instead...")
+	set(SDK_PATH $ENV{TF2SDK})
 endif()
 
 include_directories("${SDK_PATH}/public")

@@ -1,21 +1,18 @@
 // NextBotContextualQueryInterface.h
 // Queries within the context of the bot's current behavior state
 // Author: Michael Booth, June 2007
-// Copyright (c) 2007 Turtle Rock Studios, Inc. - All Rights Reserved
+//========= Copyright Valve Corporation, All rights reserved. ============//
 
 #ifndef _NEXT_BOT_CONTEXTUAL_QUERY_H_
 #define _NEXT_BOT_CONTEXTUAL_QUERY_H_
-
-#include <vector.h>
 
 class INextBot;
 class CBaseEntity;
 class CBaseCombatCharacter;
 class Path;
 class CKnownEntity;
-class PathFollower;
 
-/**
+/** 
  * Since behaviors can have several concurrent actions active, we ask
  * the topmost child action first, and if it defers, its parent, and so
  * on, until we get a definitive answer.
@@ -40,59 +37,63 @@ class IContextualQuery
 public:
 	virtual ~IContextualQuery() { }
 
-	virtual QueryResultType			ShouldPickUp(const INextBot* me, CBaseEntity* item) const;		// if the desired item was available right now, should we pick it up?
-	virtual QueryResultType			ShouldHurry(const INextBot* me) const;							// are we in a hurry?
-	//virtual QueryResultType			ShouldRetreat(const INextBot* me) const;							// is it time to retreat?
-	virtual QueryResultType			IsHindrance(const INextBot* me, CBaseEntity* blocker) const;		// return true if we should wait for 'blocker' that is across our path somewhere up ahead.
+	virtual QueryResultType			ShouldPickUp( const INextBot *me, CBaseEntity *item ) const;		// if the desired item was available right now, should we pick it up?
+	virtual QueryResultType			ShouldHurry( const INextBot *me ) const;							// are we in a hurry?
+	virtual QueryResultType			ShouldRetreat( const INextBot *me ) const;							// is it time to retreat?
+	virtual QueryResultType			ShouldAttack( const INextBot *me, const CKnownEntity *them ) const;	// should we attack "them"?
+	virtual QueryResultType			IsHindrance( const INextBot *me, CBaseEntity *blocker ) const;		// return true if we should wait for 'blocker' that is across our path somewhere up ahead.
 
-	virtual Vector					SelectTargetPoint(const INextBot* me, const CBaseCombatCharacter* subject) const;		// given a subject, return the world space position we should aim at
+	virtual Vector					SelectTargetPoint( const INextBot *me, const CBaseCombatCharacter *subject ) const;		// given a subject, return the world space position we should aim at
 
 	/**
 	 * Allow bot to approve of positions game movement tries to put him into.
 	 * This is most useful for bots derived from CBasePlayer that go through
 	 * the player movement system.
 	 */
-	virtual QueryResultType IsPositionAllowed(const INextBot* me, const Vector& pos) const;
-	virtual PathFollower* QueryCurrentPath(const INextBot* me) const;
+	virtual QueryResultType IsPositionAllowed( const INextBot *me, const Vector &pos ) const;
 
-	virtual const CKnownEntity* SelectMoreDangerousThreat(const INextBot* me,
-		const CBaseCombatCharacter* subject,
-		const CKnownEntity* threat1,
-		const CKnownEntity* threat2) const;	// return the more dangerous of the two threats to 'subject', or NULL if we have no opinion
+	virtual const CKnownEntity *	SelectMoreDangerousThreat( const INextBot *me, 
+															   const CBaseCombatCharacter *subject,
+															   const CKnownEntity *threat1, 
+															   const CKnownEntity *threat2 ) const;	// return the more dangerous of the two threats to 'subject', or NULL if we have no opinion
 };
 
-inline PathFollower* IContextualQuery::QueryCurrentPath(const INextBot* me) const
-{
-	return nullptr;
-}
-
-inline QueryResultType IContextualQuery::ShouldPickUp(const INextBot* me, CBaseEntity* item) const
+inline QueryResultType IContextualQuery::ShouldPickUp( const INextBot *me, CBaseEntity *item ) const
 {
 	return ANSWER_UNDEFINED;
 }
 
-inline QueryResultType IContextualQuery::ShouldHurry(const INextBot* me) const
+inline QueryResultType IContextualQuery::ShouldHurry( const INextBot *me ) const
 {
 	return ANSWER_UNDEFINED;
 }
 
-
-inline QueryResultType IContextualQuery::IsHindrance(const INextBot* me, CBaseEntity* blocker) const
+inline QueryResultType IContextualQuery::ShouldRetreat( const INextBot *me ) const
 {
 	return ANSWER_UNDEFINED;
 }
 
-inline Vector IContextualQuery::SelectTargetPoint(const INextBot* me, const CBaseCombatCharacter* subject) const
+inline QueryResultType IContextualQuery::ShouldAttack( const INextBot *me, const CKnownEntity *them ) const
+{
+	return ANSWER_UNDEFINED;
+}
+
+inline QueryResultType IContextualQuery::IsHindrance( const INextBot *me, CBaseEntity *blocker ) const
+{
+	return ANSWER_UNDEFINED;
+}
+
+inline Vector IContextualQuery::SelectTargetPoint( const INextBot *me, const CBaseCombatCharacter *subject ) const
 {
 	return Vector(0.0f, 0.0f, 0.0f);
 }
 
-inline QueryResultType IContextualQuery::IsPositionAllowed(const INextBot* me, const Vector& pos) const
+inline QueryResultType IContextualQuery::IsPositionAllowed( const INextBot *me, const Vector &pos ) const
 {
 	return ANSWER_UNDEFINED;
 }
 
-inline const CKnownEntity* IContextualQuery::SelectMoreDangerousThreat(const INextBot* me, const CBaseCombatCharacter* subject, const CKnownEntity* threat1, const CKnownEntity* threat2) const
+inline const CKnownEntity *IContextualQuery::SelectMoreDangerousThreat( const INextBot *me, const CBaseCombatCharacter *subject, const CKnownEntity *threat1, const CKnownEntity *threat2 ) const
 {
 	return NULL;
 }

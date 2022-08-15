@@ -11,24 +11,26 @@ class NextBotIntention : public IIntention
 public:
 	CBaseEntity* entity;
 	Behavior<void>* behavior;
-	Behavior<void>* subehavior;
 
-	Action<void>* GetAction() { return static_cast<Action<void>*>(behavior->FirstContainedResponder()); }
-	Action<void>* GetSubAction() { return static_cast<Action<void>*>(subehavior->FirstContainedResponder()); }
+	Action<void>* ActionContainedResponder() 
+	{ 
+		behavior = reinterpret_cast<decltype(behavior)>(FirstContainedResponder());
+
+		if (behavior == nullptr)
+			return nullptr;
+
+		return static_cast<Action<void>*>(behavior->FirstContainedResponder()); 
+	}
 };
 
 void OnIntentionReset()
 {
 	NextBotIntention* pIntention = META_IFACEPTR(NextBotIntention);
-	ExecuteProcessor(pIntention->entity, pIntention->GetAction());
-}
 
-void OnSurviovrIntentionReset()
-{
-	NextBotIntention* pIntention = META_IFACEPTR(NextBotIntention);
+	if (pIntention->ActionContainedResponder() == nullptr)
+		return;
 
-	ExecuteProcessor(pIntention->entity, pIntention->GetAction());
-	ExecuteProcessor(pIntention->entity, pIntention->GetSubAction());
+	ExecuteProcessor(pIntention->entity, pIntention->ActionContainedResponder());
 }
 
 void HookIntention(const char* name, fastdelegate::FastDelegate<void> fastDelegate = SH_STATIC(OnIntentionReset))
@@ -53,14 +55,14 @@ void CreateHooks()
 
 	SH_MANUALHOOK_RECONFIGURE(OnIntentionReset, intention_reset, 0, 0);
 
-	HookIntention("SurvivorIntention::Reset", SH_STATIC(OnSurviovrIntentionReset));
-	HookIntention("HunterIntention::Reset");
-	HookIntention("BoomerIntention::Reset");
-	HookIntention("TankIntention::Reset");
-	HookIntention("InfectedIntention::Reset");
-	HookIntention("WitchIntention::Reset");
-	HookIntention("SmokerIntention::Reset");
-	HookIntention("ChargerIntention::Reset");
-	HookIntention("JockeyIntention::Reset");
-	HookIntention("SpitterIntention::Reset");
+	HookIntention("CBotNPCArcherIntention::Reset");
+	HookIntention("CBotNPCDecoyIntention::Reset");
+	HookIntention("CEyeballBossIntention::Reset");
+	HookIntention("CGhostIntention::Reset");
+	HookIntention("CHeadlessHatmanIntention::Reset");
+	HookIntention("CMerasmusIntention::Reset");
+	HookIntention("CRobotIntention::Reset");
+	HookIntention("CSimpleBotIntention::Reset");
+	HookIntention("CTFBotIntention::Reset");
+	HookIntention("CZombieIntention::Reset");
 }

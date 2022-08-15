@@ -26,4 +26,4 @@ list(APPEND HPP_FILES ${H_FILES})
 
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${CPP_FILES} ${HPP_FILES})
 
-add_extension(actions.ext.2.l4d2 8 ${CPP_FILES} ${HPP_FILES})
+add_extension(actions.ext.2.tf2 6 ${CPP_FILES} ${HPP_FILES})
