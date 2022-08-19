@@ -545,7 +545,7 @@ public:
 	}
 
 
-private:
+public:
 	Action< Actor > *m_action;
 
 	#define MAX_NAME_LENGTH 32

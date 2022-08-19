@@ -9,17 +9,11 @@ SH_DECL_MANUALHOOK0_void(OnIntentionReset, 0, 0, 0);
 class NextBotIntention : public IIntention
 {
 public:
-	CBaseEntity* entity;
 	Behavior<void>* behavior;
 
 	Action<void>* ActionContainedResponder() 
 	{ 
-		behavior = reinterpret_cast<decltype(behavior)>(FirstContainedResponder());
-
-		if (behavior == nullptr)
-			return nullptr;
-
-		return static_cast<Action<void>*>(behavior->FirstContainedResponder()); 
+		return static_cast<decltype(behavior)>(FirstContainedResponder())->m_action; 
 	}
 };
 
@@ -30,7 +24,7 @@ void OnIntentionReset()
 	if (pIntention->ActionContainedResponder() == nullptr)
 		return;
 
-	ExecuteProcessor(pIntention->entity, pIntention->ActionContainedResponder());
+	ExecuteProcessor((CBaseEntity*)(pIntention->GetBot()->GetEntity()), pIntention->ActionContainedResponder());
 }
 
 void HookIntention(const char* name, fastdelegate::FastDelegate<void> fastDelegate = SH_STATIC(OnIntentionReset))
