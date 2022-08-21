@@ -21,6 +21,8 @@ jobs:
         game:
           - l4d2
           - l4d
+          - tf2
+          
         os:
           - windows-latest
           - ubuntu-latest
