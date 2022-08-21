@@ -84,6 +84,7 @@ function(add_extension ext_name engine)
 		-Wno-expansion-to-defined)
 
 		add_compile_definitions(
+			POSIX
 			_LINUX
 			stricmp=strcmp
 			_vsnprintf=vsnprintf
@@ -102,7 +103,6 @@ function(add_extension ext_name engine)
 	
 	else()
 		add_compile_definitions(
-			POSIX
 			_ITERATOR_DEBUG_LEVEL=0
 			_CRT_SECURE_NO_DEPRECATE
 			_CRT_SECURE_NO_WARNINGS
