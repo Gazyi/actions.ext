@@ -210,6 +210,18 @@ typeset ActionHandler
 
 	/* IsAbleToBlockMovementOf */
 	function Action (BehaviorAction action, int actor, Address nextbot, ActionDesiredResult result);
+
+	/* OnTerritoryContested, OnTerritoryCaptured, OnTerritoryLost */
+	function Action (BehaviorAction action, int actor, int territory);
+
+	/* OnWin, OnLose */
+	function Action (BehaviorAction action, int actor);
+
+	/* OnWeaponFired */
+	function Action (BehaviorAction action, int actor, int who, int weapon);
+
+	/* OnActorEmoted */
+	function Action (BehaviorAction action, int actor, int emoter, int emote);
 }
 
 typeset ActionContextualHandler
@@ -217,9 +229,12 @@ typeset ActionContextualHandler
 	/* ShouldPickUp, IsHindrance*/
 	function Action (BehaviorAction action, Address nextbot, int entity, QueryResultType& result);
 	
-	/* ShouldHurry */
+	/* ShouldHurry, ShouldRetreat */
 	function Action (BehaviorAction action, Address nextbot, QueryResultType& result);
-	
+
+	/* ShouldAttack */
+	function Action (BehaviorAction action, Address nextbot, Address knownEntity, QueryResultType& result);
+
 	/* SelectTargetPoint */
 	function Action (BehaviorAction action, Address nextbot, int entity, float vec[3]);
 
@@ -547,6 +562,16 @@ methodmap BehaviorAction
 		public native set(ActionContextualHandler func);
 	}
 
+	property ActionContextualHandler ShouldRetreat
+	{
+		public native set(ActionContextualHandler func);
+	}
+
+	property ActionContextualHandler ShouldAttack
+	{
+		public native set(ActionContextualHandler func);
+	}
+
 	// ====================================================================================================
 	// ACTION POST CONTEXTUAL HANDLERS
 	// ====================================================================================================
@@ -585,11 +610,20 @@ methodmap BehaviorAction
 	{
 		public native set(ActionContextualHandler func);
 	}
+	property ActionContextualHandler ShouldRetreatPost
+	{
+		public native set(ActionContextualHandler func);
+	}
+	
+	property ActionContextualHandler ShouldAttackPost
+	{
+		public native set(ActionContextualHandler func);
+	}
 
 	// ====================================================================================================
 	// ACTION PRE EVENT HANDLERS
 	// ====================================================================================================
-	
+
 	property ActionHandler OnStart
 	{
 		public native set(ActionHandler func);
@@ -800,6 +834,36 @@ methodmap BehaviorAction
 		public native set(ActionHandler func);
 	}
 	
+	property ActionHandler OnTerritoryContested
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnTerritoryCaptured
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnTerritoryLost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnWin
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnWeaponFired
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnActorEmoted
+	{
+		public native set(ActionHandler func);
+	}
+
 	// ====================================================================================================
 	// ACTION POST EVENT HANDLERS
 	// ====================================================================================================
@@ -1013,6 +1077,36 @@ methodmap BehaviorAction
 	{
 		public native set(ActionHandler func);
 	}
+
+		property ActionHandler OnTerritoryContestedPost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnTerritoryCapturedPost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnTerritoryLostPost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnWinPost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnWeaponFiredPost
+	{
+		public native set(ActionHandler func);
+	}
+	
+	property ActionHandler OnActorEmotedPost
+	{
+		public native set(ActionHandler func);
+	}
 };
 
 // ====================================================================================================
@@ -1117,6 +1211,13 @@ public void __ext_actions_SetNTVOptional()
 	MarkNativeAsOptional("BehaviorAction.IsPositionAllowed.set");
 	MarkNativeAsOptional("BehaviorAction.QueryCurrentPath.set");
 	MarkNativeAsOptional("BehaviorAction.SelectMoreDangerousThreat.set");
+	MarkNativeAsOptional("BehaviorAction.OnTerritoryCaptured.set");
+	MarkNativeAsOptional("BehaviorAction.OnTerritoryLost.set");
+	MarkNativeAsOptional("BehaviorAction.OnWin.set");
+	MarkNativeAsOptional("BehaviorAction.OnWeaponFired.set");
+	MarkNativeAsOptional("BehaviorAction.OnActorEmoted.set");
+	MarkNativeAsOptional("BehaviorAction.ShouldRetreat.set");
+	MarkNativeAsOptional("BehaviorAction.ShouldAttack.set");
 	
 	MarkNativeAsOptional("BehaviorAction.OnStartPost.set");
 	MarkNativeAsOptional("BehaviorAction.OnUpdatePost.set");
@@ -1166,5 +1267,12 @@ public void __ext_actions_SetNTVOptional()
 	MarkNativeAsOptional("BehaviorAction.IsPositionAllowedPost.set");
 	MarkNativeAsOptional("BehaviorAction.QueryCurrentPathPost.set");
 	MarkNativeAsOptional("BehaviorAction.SelectMoreDangerousThreatPost.set");
+	MarkNativeAsOptional("BehaviorAction.OnTerritoryCapturedPost.set");
+	MarkNativeAsOptional("BehaviorAction.OnTerritoryLostPost.set");
+	MarkNativeAsOptional("BehaviorAction.OnWinPost.set");
+	MarkNativeAsOptional("BehaviorAction.OnWeaponFiredPost.set");
+	MarkNativeAsOptional("BehaviorAction.OnActorEmotedPost.set");
+	MarkNativeAsOptional("BehaviorAction.ShouldRetreatPost.set");
+	MarkNativeAsOptional("BehaviorAction.ShouldAttackPost.set");
 }
 #endif 
