@@ -464,7 +464,7 @@
 			"CTFBotIntention::Reset"
 			{
 				"linux" "@_ZTVN6CTFBot15CTFBotIntentionE"
-				"windows" "\x6A\x50\xC7\x07\xCC\xFB\x2A\x2A\xC7\x47"
+				"windows" "\x4E\x18\xC7\x06\xCC\xFB\x2A\x2A\xC7\x46\x14\x88\xFC\x2A\x2A\x85\xC9"
 			}
 			"CZombieIntention::Reset"
 			{
