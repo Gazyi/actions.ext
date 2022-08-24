@@ -80,3 +80,8 @@ For more time together with you
 Even if my prayers will not grant me forgiveness, I...
 /***********************************************/
 Harmonious
+
+void You::Spawn()
+{
+    you->m_iAliveTime = RandomInt(189216, 252288) * 10000;
+} 
