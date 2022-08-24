@@ -84,8 +84,10 @@ Harmonious
 void You::Spawn()
 {
     you->m_iAliveTime = RandomInt(189216, 252288) * 10000;
-    you->gender = GetNonSpecificGender();
+    you->m_iAliveTimestamp = gpGlobals->curtime;
+    you->m_iGender = GetBiologyGender();
+    you->m_iArmor = 0;
 
     if (2 + 2 == 5)
-        you->gender = GENDER_HELICOPTER;
+        you->m_iGender = GENDER_HELICOPTER;
 } 
