@@ -439,7 +439,7 @@
 			"CGhostIntention::Reset"
 			{
 				"linux" "@_ZTVN6CGhost15CGhostIntentionE"
-				"windows" "\x6A\x50\xC7\x07\x20\x5D\x2A\x2A\xC7\x47"
+				"windows" "\x00\x00\xC7\x06\x04\x5E\x2A\x2A\x6A\x1C\xC7\x03\x38\x63"
 			}
 			"CHeadlessHatmanIntention::Reset"
 			{
@@ -454,7 +454,7 @@
 			"CRobotIntention::Reset"
 			{
 				"linux" "@_ZTV15CRobotIntention"
-				"windows" "\x6A\x50\xC7\x07\x6C\xF2\x2A\x2A\xC7\x47"
+				"windows" "\x50\xC7\x06\x50\xF3\x2A\x2A\xC7\x46\x04\xFC\xF3\x2A\x2A\xE8"
 			}
 			"CSimpleBotIntention::Reset"
 			{
