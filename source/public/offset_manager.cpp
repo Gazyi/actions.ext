@@ -40,7 +40,7 @@ void OffsetManager::ReleaseConfig()
 
 const int32_t OffsetManager::RequestOffset(const char* name)
 {
-    int32_t offset;
+    int32_t offset = -1;
     if (offsmap.count(name))
         return offsmap[name];
     if (config->GetOffset(name, (int*)&offset))
@@ -54,7 +54,7 @@ const int32_t OffsetManager::RequestOffset(const char* name)
 
 uintptr_t* const OffsetManager::RequestAddress(const char* name)
 {
-    uintptr_t* addr;
+    uintptr_t* addr = nullptr;
     if (addrmap.count(name))
         return addrmap[name];
     if (config->GetAddress(name, (void**)&addr))
@@ -69,7 +69,7 @@ uintptr_t* const OffsetManager::RequestAddress(const char* name)
 template<typename T>
 T* const OffsetManager::RequestAddress(const char* name)
 {
-    T* addr;
+    T* addr = nullptr;
     if (addrmap.count(name))
         return addrmap[name];
     if (config->GetAddress(name, (void**)&addr))
@@ -83,7 +83,7 @@ T* const OffsetManager::RequestAddress(const char* name)
 
 uintptr_t* const OffsetManager::RequestSignature(const char* name)
 {
-    uintptr_t* memSig;
+    uintptr_t* memSig = nullptr;
     if (sigmap.count(name))
         return sigmap[name];
     if (config->GetMemSig(name, (void**)&memSig))
@@ -98,7 +98,7 @@ uintptr_t* const OffsetManager::RequestSignature(const char* name)
 template<typename T>
 T* const OffsetManager::RequestSignature(const char* name)
 {
-    T* memSig;
+    T* memSig = nullptr;
     if (sigmap.count(name))
         return sigmap[name];
     if (config->GetMemSig(name, (void**)&memSig))
