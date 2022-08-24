@@ -378,7 +378,7 @@
 				}
 				"windows"
 				{
-					"read" "4"
+					"read" "3"
 				}
 			}
 			"CSimpleBotIntention::Reset"
