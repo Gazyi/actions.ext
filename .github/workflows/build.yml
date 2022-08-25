@@ -20,11 +20,11 @@ jobs:
       matrix:
         game:
           - l4d2
-          - l4d
-          - tf2
+          #- l4d
+          #- tf2
           
         os:
-          - windows-latest
+          #- windows-latest
           - ubuntu-latest
     env:
       METAMOD: ${{ github.workspace }}/metamod
@@ -64,11 +64,11 @@ jobs:
           run: |
             sudo dpkg --add-architecture i386
             sudo apt-get update
+            sudo apt-get install lib32gcc-s1
             sudo apt-get install -y --no-install-recommends \
             gcc-multilib g++-multilib libstdc++6 lib32stdc++6 \
             libc6-dev libc6-dev-i386 linux-libc-dev \
-            linux-libc-dev:i386 lib32z1-dev \
-            sudo apt install clang
+            linux-libc-dev:i386 lib32z1-dev
             
         - name: Create Build Directory
           run: cmake -E make_directory ${{github.workspace}}/build
