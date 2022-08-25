@@ -67,7 +67,8 @@ jobs:
             sudo apt-get install -y --no-install-recommends \
             gcc-multilib g++-multilib libstdc++6 lib32stdc++6 \
             libc6-dev libc6-dev-i386 linux-libc-dev \
-            linux-libc-dev:i386 lib32z1-dev
+            linux-libc-dev:i386 lib32z1-dev \
+            sudo apt install clang
             
         - name: Create Build Directory
           run: cmake -E make_directory ${{github.workspace}}/build
