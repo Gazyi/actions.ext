@@ -20,11 +20,11 @@ jobs:
       matrix:
         game:
           - l4d2
-          #- l4d
-          #- tf2
+          - l4d
+          - tf2
           
         os:
-          #- windows-latest
+          - windows-latest
           - ubuntu-latest
     env:
       METAMOD: ${{ github.workspace }}/metamod
