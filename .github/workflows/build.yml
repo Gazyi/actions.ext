@@ -64,7 +64,6 @@ jobs:
           run: |
             sudo dpkg --add-architecture i386
             sudo apt-get update
-            sudo apt install clang-10
             sudo apt-get install -y --install-recommends \
             gcc-multilib g++-multilib libstdc++6 lib32stdc++6 \
             libc6-dev libc6-dev-i386 linux-libc-dev \
